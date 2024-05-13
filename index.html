@@ -84,7 +84,7 @@
     let images = document.querySelector(".images");
     
     async function imgGeneratorCat(category) {
-        const accessKey = "MwFQDr7TXsIx46HjflmYA9M2X5pCIy-Wg0F-jkEGaLU";
+        const accessKey = "YOUR_ACCESS_KEY";
 
         try {
             let response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=${category}`)
@@ -104,7 +104,7 @@
     }
     
     async function imgGenerator() {
-        const accessKey = "MwFQDr7TXsIx46HjflmYA9M2X5pCIy-Wg0F-jkEGaLU";
+        const accessKey = "YOUR_ACCESS_KEY";
 
         try {
             let response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}`)
