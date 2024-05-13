@@ -1,0 +1,137 @@
+<!-- fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=${category}`); -->
+<!-- fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}`); -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karan's Image Generator</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sedan:ital@0;1&family=Tilt+Neon&display=swap');
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(''); /* Initially, set it to an empty string */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .hero {
+            height: 330px;
+            width: 390px;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.295);
+            backdrop-filter: blur(10px);
+            box-shadow: 4px 4px 10px black;
+        }
+
+        .hero>.title {
+            margin-bottom: 12px;
+            color: aliceblue;
+        }
+
+        .hero>.btns>button {
+            padding: 5px 7px;
+        }
+
+        .unimg
+        {
+            height: 220px;
+            width: 350px;   
+            margin: 10px 12px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="title">
+                <h3>Karan's Image Generator</h3>
+            </div>
+            <div class="btns">
+                <button onclick="imgGenerator()" id="rand">Random</button>
+                <button onclick="imgGeneratorCat('nature')" id="natu">Nature</button>
+                <button onclick="imgGeneratorCat('architecture')" id="tech">Architecture</button>
+                <button onclick="imgGeneratorCat('people')" id="ppl">People</button>
+            </div>
+            <div class="images">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let images = document.querySelector(".images");
+    
+    async function imgGeneratorCat(category) {
+        const accessKey = "MwFQDr7TXsIx46HjflmYA9M2X5pCIy-Wg0F-jkEGaLU";
+
+        try {
+            let response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=${category}`)
+            let data = await response.json()
+            if(!response.ok)
+            {
+                throw new err('Could not find Sorry..!')
+            }
+
+            displayImages(data)
+        }
+
+        catch (err) {
+            console.error("Error : ", err);
+            alert('Something Went Wrong')
+        }
+    }
+    
+    async function imgGenerator() {
+        const accessKey = "MwFQDr7TXsIx46HjflmYA9M2X5pCIy-Wg0F-jkEGaLU";
+
+        try {
+            let response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${accessKey}`)
+            let data = await response.json()
+            if(!response.ok)
+            {
+                throw new err('Could not find Sorry..!')
+            }
+
+            displayImages(data)
+        }
+
+        catch (err) {
+            console.error("Error : ", err);
+            alert('Something Went Wrong')
+        }
+    }
+
+    function displayImages(photos) {
+        let img = document.createElement('img');
+        images.innerHTML = "";
+        img.className = "unimg"
+        img.src = photos.urls.regular;
+        img.alt = "Not Found"
+        document.body.style.backgroundImage = `url(${photos.urls.regular})`;
+        images.appendChild(img)
+    }
+</script>
+
+</html>
